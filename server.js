@@ -2,10 +2,13 @@ const express = require('express');
 const mongoose = require('mongoose');
 const Product = require('./models/productModel');
 const app = express();  
+//===============================
 
 //middleware
 app.use(express.json());
 app.use(express.urlencoded({extended:false}))
+//====================================
+
 
 //routes
 app.get('/', (req, res) => {
@@ -36,7 +39,8 @@ app.get('/products/:id', async (req, res) => {
         res.status(500).json({message: error.message})
     }
 })
-
+//====================================
+//create
 app.post('/products', async (req, res) => {
     try{
         const product = await Product.create(req.body)
@@ -47,7 +51,7 @@ app.post('/products', async (req, res) => {
         res.status(500).json({message: error.message})
     }
 })
-
+//===================================
 //update
 app.put('/products/:id', async (req, res) => {
     try{
@@ -63,7 +67,7 @@ app.put('/products/:id', async (req, res) => {
         res.status(500).json({message: error.message})
     }
 })
-
+//================================
 //delete
 app.delete('/products/:id', async (req, res) => {
     try{
@@ -80,7 +84,7 @@ app.delete('/products/:id', async (req, res) => {
 })
 
 
-
+//=============================
 mongoose.set('strictQuery', false);
 mongoose
 .connect('mongodb://localhost:27017/')
