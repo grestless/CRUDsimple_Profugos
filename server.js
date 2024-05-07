@@ -12,13 +12,14 @@ app.use(express.urlencoded({extended:false}))
 
 //routes
 app.get('/', (req, res) => {
-    res.send('va para dalloooooot jajajaj')
+    res.send('probando probando')
 })
 
 app.get ('/blog', (req, res) => {
-    res.send('gaaarnaachoo!!!!');
+    res.send('123 123 123!!!!');
 })
-
+//================================
+//read
 app.get('/products', async (req, res) => {
     try{
         const products = await Product.find();
@@ -58,7 +59,7 @@ app.put('/products/:id', async (req, res) => {
         const {id} = req.params;
         const product = await Product.findByIdAndUpdate(id, req.body);
         if(!product){ //si no podemos encontrar el producto en la db
-            return res.status(404).json({message: 'Cannot find product with ID ${id}'})
+            return res.status(404).json({message: 'No se encontro el producto con el ID ${id}'})
         }
         const updatedProduct = await Product.findById(id); 
         res.status(200).json(updatedProduct)
@@ -74,7 +75,7 @@ app.delete('/products/:id', async (req, res) => {
         const {id} = req.params;
         const product = await Product.findByIdAndDelete(id);
         if(!product){
-            return res.status(404).json({message: 'Cannot find product with ID ${id}'})
+            return res.status(404).json({message: 'No se encontro el producto con el ID ${id}'})
         }
         res.status(200).json(product)
 
@@ -90,7 +91,7 @@ mongoose
 .connect('mongodb://localhost:27017/')
 .then(() => {
     console.log('MongoDB connected');
-    app.listen(3000, () => console.log('Server started on port 3000'));
+    app.listen(3000, () => console.log('Servidor corriendo en el puerto 3000'));
     
 })
 .catch(() => {

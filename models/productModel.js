@@ -3,23 +3,23 @@ const mongoose = require('mongoose'); //todo lo que interactue con la base de da
 
 const productSchema = new mongoose.Schema(
     {
-        name: {
+        nombre: {
             type: String,
             required: [true, 'Ingrese un nombre'], //es un array porque puede ser true o false, ((validacion))
         },
-        quantity: {
+        cantidad: {
             type: Number,
             required : true,
             default: 0
         },
-        price: {
+        precio: {
             type: Number,
             required: true,
             
         },
-        image: {
+        categoria: {
             type: String,
-            required: false,
+        
         }
 
 
