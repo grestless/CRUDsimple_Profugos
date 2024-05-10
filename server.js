@@ -1,6 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const Product = require('./models/productModel');
+const Profugos= require('./models/profugoModel');
 const app = express();  
 //===============================
 
@@ -17,13 +17,14 @@ app.get('/', (req, res) => {
 
 app.get ('/blog', (req, res) => {
     res.send('123 123 123!!!!');
+
 })
 //================================
 //read
-app.get('/products', async (req, res) => {
+app.get('/profugos', async (req, res) => {
     try{
-        const products = await Product.find();
-        res.status(200).json(products)
+        const profugo = await Profugos.find();
+        res.status(200).json(profugo)
     } 
     catch(error){
         res.status(500).json({message: error.message})
@@ -31,21 +32,21 @@ app.get('/products', async (req, res) => {
 
 })
 
-app.get('/products/:id', async (req, res) => {
+app.get('/profugos/:id', async (req, res) => {
     try{
         const {id} = req.params
-        const product = await Product.findById(id); 
-        res.status(200).json(product)
+        const profugo = await Profugos.findById(id); 
+        res.status(200).json(profugo)
     } catch(error){
         res.status(500).json({message: error.message})
     }
 })
 //====================================
 //create
-app.post('/products', async (req, res) => {
+app.post('/profugos', async (req, res) => {
     try{
-        const product = await Product.create(req.body)
-        res.status(200).json(product)
+        const profugo = await Profugos.create(req.body)
+        res.status(200).json(profugo)
     }
     catch(error){
         console.log(error.message);
@@ -54,15 +55,15 @@ app.post('/products', async (req, res) => {
 })
 //===================================
 //update
-app.put('/products/:id', async (req, res) => {
+app.put('/profugos/:id', async (req, res) => {
     try{
         const {id} = req.params;
-        const product = await Product.findByIdAndUpdate(id, req.body);
-        if(!product){ //si no podemos encontrar el producto en la db
-            return res.status(404).json({message: 'No se encontro el producto con el ID ${id}'})
+        const profugo = await Profugos.findByIdAndUpdate(id, req.body);
+        if(!profugo){ //si no podemos encontrar el profugo en la db
+            return res.status(404).json({message: 'No se encontro el profugo con el ID ${id}'})
         }
-        const updatedProduct = await Product.findById(id); 
-        res.status(200).json(updatedProduct)
+        const updatedProfugo = await Profugos.findById(id); 
+        res.status(200).json(updatedProfugo)
     }
     catch(error){
         res.status(500).json({message: error.message})
@@ -70,14 +71,14 @@ app.put('/products/:id', async (req, res) => {
 })
 //================================
 //delete
-app.delete('/products/:id', async (req, res) => {
+app.delete('/profugos/:id', async (req, res) => {
     try{
         const {id} = req.params;
-        const product = await Product.findByIdAndDelete(id);
-        if(!product){
-            return res.status(404).json({message: 'No se encontro el producto con el ID ${id}'})
+        const profugo = await Profugos.findByIdAndDelete(id);
+        if(!profugo){
+            return res.status(404).json({message: 'No se encontro el profugo con el ID ${id}'})
         }
-        res.status(200).json(product)
+        res.status(200).json(profugo)
 
     } catch(error){
         res.status(500).json({message: error.message})
@@ -90,7 +91,7 @@ mongoose.set('strictQuery', false);
 mongoose
 .connect('mongodb://localhost:27017/')
 .then(() => {
-    console.log('MongoDB connected');
+    console.log('MongoDB conectado');
     app.listen(3000, () => console.log('Servidor corriendo en el puerto 3000'));
     
 })
